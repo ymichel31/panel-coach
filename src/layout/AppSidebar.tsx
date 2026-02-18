@@ -9,6 +9,7 @@ import {
   HorizontaLDots,
   ListIcon,
   TaskIcon,
+  UserCircleIcon,
 } from "../icons/index";
 
 type NavItem = {
@@ -22,12 +23,17 @@ const navItems: NavItem[] = [
   {
     name: "Sesiones",
     icon: <ListIcon />,
-    path: "/sesiones",
+    path: "/sessions",
   },
   {
     name: "Habilidades",
     icon: <TaskIcon />,
-    path: "/habilidades",
+    path: "/skills",
+  },
+  {
+    name: "Practicantes",
+    icon: <UserCircleIcon />,
+    path: "/practitioners",
   },
 ];
 
