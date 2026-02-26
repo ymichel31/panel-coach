@@ -1,4 +1,5 @@
 "use client";
+
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import ComponentCard from "@/components/common/ComponentCard";
 import Label from "@/components/form/Label";
@@ -15,25 +16,34 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { createSessionAction } from "@/actions/session";
+import { updateSessionAction } from "@/actions/session";
 
-export default function CreateSessionPage() {
+type Session = { id: string; title?: string; date?: string; description?: string };
+
+function parseDateToParts(isoDate: string | undefined): { datePart: string; timePart: string } {
+  if (!isoDate || isoDate.length < 16) return { datePart: "", timePart: "" };
+  return {
+    datePart: isoDate.slice(0, 10),
+    timePart: isoDate.slice(11, 16),
+  };
+}
+
+export default function SessionEditForm({ session }: { session: Session }) {
   const router = useRouter();
-  const [title, setTitle] = useState("");
-  const [datePart, setDatePart] = useState("");
-  const [timePart, setTimePart] = useState("");
-  const [description, setDescription] = useState("");
+  const { datePart: initialDate, timePart: initialTime } = parseDateToParts(session.date);
+  const [title, setTitle] = useState(session.title ?? "");
+  const [datePart, setDatePart] = useState(initialDate);
+  const [timePart, setTimePart] = useState(initialTime);
+  const [description, setDescription] = useState(session.description ?? "");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleEvaluadoresChange = (selected: string[]) => {
     console.log("Evaluadores seleccionados:", selected);
   };
-
   const handleCategoriaChange = (selected: string[]) => {
     console.log("Categoría seleccionada:", selected[0] ?? "");
   };
-
   const handleHabilidadesChange = (selected: string[]) => {
     console.log("Habilidades seleccionadas:", selected);
   };
@@ -48,15 +58,15 @@ export default function CreateSessionPage() {
     setError(null);
     setIsSubmitting(true);
     try {
-      const result = await createSessionAction({ title, date, description });
+      const result = await updateSessionAction({ id: session.id, title, date, description });
       if (result) {
         router.push("/sessions");
         router.refresh();
       } else {
-        setError("No se pudo crear la sesión. Revisa la consola del servidor.");
+        setError("No se pudo actualizar la sesión. Revisa la consola del servidor.");
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Error al crear la sesión");
+      setError(err instanceof Error ? err.message : "Error al actualizar la sesión");
     } finally {
       setIsSubmitting(false);
     }
@@ -64,11 +74,11 @@ export default function CreateSessionPage() {
 
   return (
     <div>
-      <PageBreadcrumb pageTitle="Crear Sesión" />
+      <PageBreadcrumb pageTitle="Editar sesión" />
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         <div className="space-y-6">
-          <form id="create-session-form" onSubmit={handleSubmit}>
+          <form id="edit-session-form" onSubmit={handleSubmit}>
             <ComponentCard>
               <div className="space-y-6">
                 <div>
@@ -133,20 +143,20 @@ export default function CreateSessionPage() {
           </ComponentCard>
         </div>
         <div className="flex gap-4">
-            <button
-              type="submit"
-              form="create-session-form"
-              disabled={isSubmitting}
-              className="inline-flex items-center justify-center font-medium gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300"
-            >
-              {isSubmitting ? "Guardando…" : "Guardar"}
-            </button>
-            <Link href="/sessions">
-              <Button size="md" variant="outline">
-                Cancelar
-              </Button>
-            </Link>
-          </div>
+          <button
+            type="submit"
+            form="edit-session-form"
+            disabled={isSubmitting}
+            className="inline-flex items-center justify-center font-medium gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300"
+          >
+            {isSubmitting ? "Guardando…" : "Guardar"}
+          </button>
+          <Link href="/sessions">
+            <Button size="md" variant="outline">
+              Cancelar
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );

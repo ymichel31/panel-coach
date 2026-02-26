@@ -15,13 +15,15 @@ export type Column<T = Record<string, unknown>> = {
   header: string;
 };
 
-type DataListPageProps<T extends Record<string, unknown> & { id: number }> = {
+type DataListPageProps<T extends Record<string, unknown> & { id: number | string }> = {
   pageTitle: string;
   createButtonLabel: string;
   createHref: string;
   columns: Column<T>[];
   data: T[];
   emptyMessage: string;
+  /** Si se define, se añade una columna "Acciones" con enlace Editar a {editHrefPrefix}{row.id} */
+  editHrefPrefix?: string;
 };
 
 const tableHeaderCellClass =
@@ -32,14 +34,17 @@ const tableBodyCellPrimaryClass =
 const emptyCellClass =
   "px-5 py-8 text-center text-gray-500 text-theme-sm dark:text-gray-400";
 
-export function DataListPage<T extends Record<string, unknown> & { id: number }>({
+export function DataListPage<T extends Record<string, unknown> & { id: number | string }>({
   pageTitle,
   createButtonLabel,
   createHref,
   columns,
   data,
   emptyMessage,
+  editHrefPrefix,
 }: DataListPageProps<T>) {
+  const colspan = columns.length + (editHrefPrefix ? 1 : 0);
+
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
@@ -65,13 +70,18 @@ export function DataListPage<T extends Record<string, unknown> & { id: number }>
                     {col.header}
                   </TableCell>
                 ))}
+                {editHrefPrefix && (
+                  <TableCell isHeader className={tableHeaderCellClass + " w-24 text-end"}>
+                    Acciones
+                  </TableCell>
+                )}
               </TableRow>
             </TableHeader>
             <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
               {data.length === 0 ? (
                 <TableRow>
                   <td
-                    colSpan={columns.length}
+                    colSpan={colspan}
                     className={emptyCellClass}
                   >
                     {emptyMessage}
@@ -90,6 +100,16 @@ export function DataListPage<T extends Record<string, unknown> & { id: number }>
                         {String(row[col.key as keyof T] ?? "")}
                       </TableCell>
                     ))}
+                    {editHrefPrefix && (
+                      <TableCell className={tableBodyCellClass + " text-end"}>
+                        <Link
+                          href={`${editHrefPrefix}${row.id}`}
+                          className="text-brand-500 hover:underline text-theme-sm"
+                        >
+                          Editar
+                        </Link>
+                      </TableCell>
+                    )}
                   </TableRow>
                 ))
               )}

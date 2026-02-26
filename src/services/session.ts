@@ -35,7 +35,12 @@ export const createSession = async (session: SessionInput) => {
 
 export const updateSession = async (session: SessionInput & { id: string }) => {
   const supabase = await createClient();
-  const { data, error } = await supabase.from('sessions').update(session).eq('id', session.id).select('*');
+  const { title, date, description, id } = session;
+  const { data, error } = await supabase
+    .from('sessions')
+    .update({ title, date, description })
+    .eq('id', id)
+    .select('*');
   if (error) {
     console.error(error);
     return null;
