@@ -6,7 +6,7 @@ import Label from "@/components/form/Label";
 import Input from "@/components/form/input/InputField";
 import MultiSelect from "@/components/form/MultiSelect";
 import Button from "@/components/ui/button/Button";
-import { createSkillAction } from "@/actions/skill";
+import { updateSkillAction } from "@/actions/skill";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -18,11 +18,20 @@ const categoriasOptions = [
   { value: "coach", text: "Coach", selected: false },
 ];
 
-export default function CreateSkillPage() {
+type Skill = {
+  id: string;
+  name?: string;
+  category?: string;
+  maxScore?: number;
+  max_score?: number;
+};
+
+export default function SkillEditForm({ skill }: { skill: Skill }) {
   const router = useRouter();
-  const [name, setName] = useState("");
-  const [category, setCategory] = useState("");
-  const [maxScore, setMaxScore] = useState("");
+  const maxScoreVal = skill.maxScore ?? skill.max_score ?? 0;
+  const [name, setName] = useState(skill.name ?? "");
+  const [category, setCategory] = useState(skill.category ?? "");
+  const [maxScore, setMaxScore] = useState(String(maxScoreVal));
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -44,7 +53,8 @@ export default function CreateSkillPage() {
     setError(null);
     setIsSubmitting(true);
     try {
-      const result = await createSkillAction({
+      const result = await updateSkillAction({
+        id: skill.id,
         name: name.trim(),
         category: category.trim(),
         maxScore: scoreNum,
@@ -53,10 +63,10 @@ export default function CreateSkillPage() {
         router.push("/skills");
         router.refresh();
       } else {
-        setError("No se pudo crear la habilidad. Revisa la consola del servidor.");
+        setError("No se pudo actualizar la habilidad. Revisa la consola del servidor.");
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Error al crear la habilidad.");
+      setError(err instanceof Error ? err.message : "Error al actualizar la habilidad.");
     } finally {
       setIsSubmitting(false);
     }
@@ -64,7 +74,7 @@ export default function CreateSkillPage() {
 
   return (
     <div>
-      <PageBreadcrumb pageTitle="Crear habilidad" />
+      <PageBreadcrumb pageTitle="Editar habilidad" />
 
       <div className="max-w-2xl space-y-6">
         <ComponentCard>

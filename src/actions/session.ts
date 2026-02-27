@@ -16,6 +16,7 @@ export async function getSessionsAction() {
 }
 
 export async function getSessionByIdAction(id: string) {
+  if (!id?.trim()) return null;
   return await getSessionById(id);
 }
 
@@ -32,6 +33,7 @@ export async function updateSessionAction(session: SessionInput & { id: string }
 }
 
 export async function deleteSessionAction(id: string) {
+  if (!id?.trim()) return null;
   const data = await deleteSession(id);
   revalidatePath('/sessions');
   return data;

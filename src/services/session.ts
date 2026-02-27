@@ -9,12 +9,16 @@ export const getSessions = async () => {
     console.error(error);
     return [];
   }
-  return data;
+  return data ?? [];
 }
 
 export const getSessionById = async (id: string) => {
   const supabase = await createClient();
-  const { data, error } = await supabase.from('sessions').select('*').eq('id', id);
+  const { data, error } = await supabase
+    .from("sessions")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
   if (error) {
     console.error(error);
     return null;

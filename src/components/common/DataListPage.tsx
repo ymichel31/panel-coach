@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/table";
 import Link from "next/link";
 import React from "react";
+import { ListActionsCell } from "./ListActionsCell";
 
 export type Column<T = Record<string, unknown>> = {
   key: keyof T | string;
@@ -22,8 +23,8 @@ type DataListPageProps<T extends Record<string, unknown> & { id: number | string
   columns: Column<T>[];
   data: T[];
   emptyMessage: string;
-  /** Si se define, se añade una columna "Acciones" con enlace Editar a {editHrefPrefix}{row.id} */
   editHrefPrefix?: string;
+  deleteAction?: (id: string) => Promise<unknown>;
 };
 
 const tableHeaderCellClass =
@@ -42,8 +43,10 @@ export function DataListPage<T extends Record<string, unknown> & { id: number | 
   data,
   emptyMessage,
   editHrefPrefix,
+  deleteAction,
 }: DataListPageProps<T>) {
-  const colspan = columns.length + (editHrefPrefix ? 1 : 0);
+  const hasActions = Boolean(editHrefPrefix || deleteAction);
+  const colspan = columns.length + (hasActions ? 1 : 0);
 
   return (
     <div>
@@ -70,8 +73,8 @@ export function DataListPage<T extends Record<string, unknown> & { id: number | 
                     {col.header}
                   </TableCell>
                 ))}
-                {editHrefPrefix && (
-                  <TableCell isHeader className={tableHeaderCellClass + " w-24 text-end"}>
+                {hasActions && (
+                  <TableCell isHeader className={tableHeaderCellClass + " w-40 text-end"}>
                     Acciones
                   </TableCell>
                 )}
@@ -100,14 +103,13 @@ export function DataListPage<T extends Record<string, unknown> & { id: number | 
                         {String(row[col.key as keyof T] ?? "")}
                       </TableCell>
                     ))}
-                    {editHrefPrefix && (
+                    {hasActions && (
                       <TableCell className={tableBodyCellClass + " text-end"}>
-                        <Link
-                          href={`${editHrefPrefix}${row.id}`}
-                          className="text-brand-500 hover:underline text-theme-sm"
-                        >
-                          Editar
-                        </Link>
+                        <ListActionsCell
+                          editHref={editHrefPrefix ? `${editHrefPrefix}${row.id}` : undefined}
+                          deleteAction={deleteAction}
+                          rowId={row.id}
+                        />
                       </TableCell>
                     )}
                   </TableRow>

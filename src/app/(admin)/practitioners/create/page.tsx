@@ -17,7 +17,6 @@ export default function CreatePractitionerPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: enviar a API
     console.log({ nombre, apellido, edad, correo, experiencia });
   };
 

@@ -15,8 +15,7 @@ export default async function EditSessionPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const list = await getSessionByIdAction(id);
-  if (!list || !Array.isArray(list) || list.length === 0) notFound();
-  const session = list[0] as { id: string; title?: string; date?: string; description?: string };
+  const session = await getSessionByIdAction(id);
+  if (!session) notFound();
   return <SessionEditForm session={session} />;
 }

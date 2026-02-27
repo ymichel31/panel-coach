@@ -1,18 +1,17 @@
 import React, { ReactNode } from "react";
 
-interface ButtonProps {
-  children: ReactNode; // Button text or content
-  size?: "sm" | "md"; // Button size
-  variant?: "primary" | "outline"; // Button variant
-  startIcon?: ReactNode; // Icon before the text
-  endIcon?: ReactNode; // Icon after the text
-  onClick?: () => void; // Click handler
-  disabled?: boolean; // Disabled state
-  className?: string; // Disabled state
+interface ButtonProps
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "children"> {
+  children: ReactNode;
+  size?: "sm" | "md";
+  variant?: "primary" | "outline";
+  startIcon?: ReactNode;
+  endIcon?: ReactNode;
 }
 
 const Button: React.FC<ButtonProps> = ({
   children,
+  type = "button",
   size = "md",
   variant = "primary",
   startIcon,
@@ -20,6 +19,7 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   className = "",
   disabled = false,
+  ...rest
 }) => {
   // Size Classes
   const sizeClasses = {
@@ -37,13 +37,11 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
-      className={`inline-flex items-center justify-center font-medium gap-2 rounded-lg transition ${className} ${
-        sizeClasses[size]
-      } ${variantClasses[variant]} ${
-        disabled ? "cursor-not-allowed opacity-50" : ""
-      }`}
+      type={type}
+      className={`inline-flex items-center justify-center font-medium gap-2 rounded-lg transition ${className} ${sizeClasses[size]} ${variantClasses[variant]} ${disabled ? "cursor-not-allowed opacity-50" : ""}`}
       onClick={onClick}
       disabled={disabled}
+      {...rest}
     >
       {startIcon && <span className="flex items-center">{startIcon}</span>}
       {children}

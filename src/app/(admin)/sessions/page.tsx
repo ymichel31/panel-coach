@@ -1,5 +1,5 @@
 import { DataListPage } from "@/components/common/DataListPage";
-import { getSessionsAction } from "@/actions/session";
+import { getSessionsAction, deleteSessionAction } from "@/actions/session";
 import { Metadata } from "next";
 import React from "react";
 
@@ -33,6 +33,7 @@ export default async function SessionsPage() {
       data={data}
       emptyMessage='No hay sesiones. Haz clic en "Crear sesión" para añadir una.'
       editHrefPrefix="/sessions/edit/"
+      deleteAction={deleteSessionAction}
     />
   );
 }
