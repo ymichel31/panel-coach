@@ -10,6 +10,7 @@ export async function getSkillsAction() {
 }
 
 export async function getSkillByIdAction(id: string) {
+  if (!id?.trim()) return null;
   return await getSkillById(id);
 }
 
@@ -26,6 +27,7 @@ export async function updateSkillAction(skill: SkillInput & { id: string }) {
 }
 
 export async function deleteSkillAction(id: string) {
+  if (!id?.trim()) return null;
   const data = await deleteSkill(id);
   revalidatePath('/skills');
   return data;

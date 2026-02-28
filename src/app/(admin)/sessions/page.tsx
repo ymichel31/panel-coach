@@ -1,4 +1,5 @@
 import { DataListPage } from "@/components/common/DataListPage";
+import { getSessionsAction, deleteSessionAction } from "@/actions/session";
 import { Metadata } from "next";
 import React from "react";
 
@@ -7,30 +8,32 @@ export const metadata: Metadata = {
   description: "Listado de sesiones",
 };
 
-type SesionRow = {
-  id: number;
-  nombre: string;
-  fecha: string;
-  estado: string;
-};
+export default async function SessionsPage() {
+  const sessions = await getSessionsAction();
 
-const sesionesData: SesionRow[] = [];
+  const columns = [
+    { key: "title" as const, header: "Nombre" },
+    { key: "date" as const, header: "Fecha" },
+    { key: "description" as const, header: "Descripción" },
+  ];
 
-const columns = [
-  { key: "nombre" as const, header: "Nombre" },
-  { key: "fecha" as const, header: "Fecha" },
-  { key: "estado" as const, header: "Estado" },
-];
+  const data = (sessions ?? []).map((s: { id: string; title?: string; date?: string; description?: string }) => ({
+    id: s.id,
+    title: s.title ?? "",
+    date: s.date ?? "",
+    description: s.description ?? "",
+  }));
 
-export default function SessionsPage() {
   return (
-    <DataListPage<SesionRow>
+    <DataListPage
       pageTitle="Sesiones"
       createButtonLabel="Crear sesión"
       createHref="/sessions/create"
       columns={columns}
-      data={sesionesData}
+      data={data}
       emptyMessage='No hay sesiones. Haz clic en "Crear sesión" para añadir una.'
+      editHrefPrefix="/sessions/edit/"
+      deleteAction={deleteSessionAction}
     />
   );
 }

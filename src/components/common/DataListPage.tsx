@@ -9,19 +9,22 @@ import {
 } from "@/components/ui/table";
 import Link from "next/link";
 import React from "react";
+import { ListActionsCell } from "./ListActionsCell";
 
 export type Column<T = Record<string, unknown>> = {
   key: keyof T | string;
   header: string;
 };
 
-type DataListPageProps<T extends Record<string, unknown> & { id: number }> = {
+type DataListPageProps<T extends Record<string, unknown> & { id: number | string }> = {
   pageTitle: string;
   createButtonLabel: string;
   createHref: string;
   columns: Column<T>[];
   data: T[];
   emptyMessage: string;
+  editHrefPrefix?: string;
+  deleteAction?: (id: string) => Promise<unknown>;
 };
 
 const tableHeaderCellClass =
@@ -32,14 +35,19 @@ const tableBodyCellPrimaryClass =
 const emptyCellClass =
   "px-5 py-8 text-center text-gray-500 text-theme-sm dark:text-gray-400";
 
-export function DataListPage<T extends Record<string, unknown> & { id: number }>({
+export function DataListPage<T extends Record<string, unknown> & { id: number | string }>({
   pageTitle,
   createButtonLabel,
   createHref,
   columns,
   data,
   emptyMessage,
+  editHrefPrefix,
+  deleteAction,
 }: DataListPageProps<T>) {
+  const hasActions = Boolean(editHrefPrefix || deleteAction);
+  const colspan = columns.length + (hasActions ? 1 : 0);
+
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
@@ -65,13 +73,18 @@ export function DataListPage<T extends Record<string, unknown> & { id: number }>
                     {col.header}
                   </TableCell>
                 ))}
+                {hasActions && (
+                  <TableCell isHeader className={tableHeaderCellClass + " w-40 text-end"}>
+                    Acciones
+                  </TableCell>
+                )}
               </TableRow>
             </TableHeader>
             <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
               {data.length === 0 ? (
                 <TableRow>
                   <td
-                    colSpan={columns.length}
+                    colSpan={colspan}
                     className={emptyCellClass}
                   >
                     {emptyMessage}
@@ -90,6 +103,15 @@ export function DataListPage<T extends Record<string, unknown> & { id: number }>
                         {String(row[col.key as keyof T] ?? "")}
                       </TableCell>
                     ))}
+                    {hasActions && (
+                      <TableCell className={tableBodyCellClass + " text-end"}>
+                        <ListActionsCell
+                          editHref={editHrefPrefix ? `${editHrefPrefix}${row.id}` : undefined}
+                          deleteAction={deleteAction}
+                          rowId={row.id}
+                        />
+                      </TableCell>
+                    )}
                   </TableRow>
                 ))
               )}

@@ -1,4 +1,5 @@
 import { DataListPage } from "@/components/common/DataListPage";
+import { getPractitionersAction } from "@/actions/practitioner";
 import { Metadata } from "next";
 import React from "react";
 
@@ -8,32 +9,40 @@ export const metadata: Metadata = {
 };
 
 type PracticanteRow = {
-  id: number;
-  nombre: string;
-  apellido: string;
-  edad: number;
-  correo: string;
-  experiencia: string;
+  id: string;
+  firstName: string;
+  lastName: string;
+  age: number;
+  weightCategory: string;
+  gym: string;
 };
 
-const practicantesData: PracticanteRow[] = [];
-
 const columns = [
-  { key: "nombre" as const, header: "Nombre" },
-  { key: "apellido" as const, header: "Apellido" },
-  { key: "edad" as const, header: "Edad" },
-  { key: "correo" as const, header: "Correo" },
-  { key: "experiencia" as const, header: "Experiencia" },
+  { key: "firstName" as const, header: "Nombre" },
+  { key: "lastName" as const, header: "Apellido" },
+  { key: "age" as const, header: "Edad" },
+  { key: "weightCategory" as const, header: "Categoría peso" },
+  { key: "gym" as const, header: "Gimnasio" },
 ];
 
-export default function PractitionersPage() {
+export default async function PractitionersPage() {
+  const list = await getPractitionersAction();
+  const data: PracticanteRow[] = (list ?? []).map((p: Record<string, unknown>) => ({
+    id: String(p.practitioner_id ?? p.id ?? ""),
+    firstName: String(p.first_name ?? ""),
+    lastName: String(p.last_name ?? ""),
+    age: Number(p.age ?? 0),
+    weightCategory: String(p.weight_category ?? ""),
+    gym: String(p.gym ?? ""),
+  }));
+
   return (
     <DataListPage<PracticanteRow>
       pageTitle="Practicantes"
       createButtonLabel="Nuevo practicante"
       createHref="/practitioners/create"
       columns={columns}
-      data={practicantesData}
+      data={data}
       emptyMessage='No hay practicantes. Haz clic en "Nuevo practicante" para añadir uno.'
     />
   );
