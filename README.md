@@ -188,7 +188,7 @@ A major update focused on Next.js 16 implementation and comprehensive redesign.
 * Enhanced multiselect functionality
 * Added default layout component
 
-## License
+## License.
 
 TailAdmin Next.js Free Version is released under the MIT License.
 
