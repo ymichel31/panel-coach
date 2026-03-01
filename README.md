@@ -25,10 +25,10 @@ TailAdmin provides essential UI components and layouts for building feature-rich
 * [🖌️ Figma Design File (Community Edition)](https://www.figma.com/community/file/1463141366275764364)
 * [⚡ Get PRO Version](https://tailadmin.com/pricing)
 
-### Demos
+### s
 
-* [Free Version](https://nextjs-free-demo.tailadmin.com)
-* [Pro Version](https://nextjs-demo.tailadmin.com)
+* [Free Version](https://nextjs-free-.tailadmin.com)
+* [Pro Version](https://nextjs-.tailadmin.com)
 
 ### Other Versions
 
