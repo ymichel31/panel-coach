@@ -4,7 +4,7 @@ import { Metadata } from "next";
 import React from "react";
 
 export const metadata: Metadata = {
-  title: "Habilidades | Panel Coach",
+  title: "Habilidades",
   description: "Listado de habilidades",
 };
 
