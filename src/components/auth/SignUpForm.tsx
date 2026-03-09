@@ -1,14 +1,16 @@
 "use client";
-import Checkbox from "@/components/form/input/Checkbox";
-import Input from "@/components/form/input/InputField";
 import Label from "@/components/form/Label";
-import { EyeCloseIcon, EyeIcon } from "@/icons";
+import { SignUpInput } from "@/types/auth";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
-export default function SignUpForm() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
+type Props = {
+  onSubmit: (data: SignUpInput) => void;
+}
+
+export default function SignUpForm({ onSubmit }: Props) {
+  const { register, handleSubmit, formState: { errors } } = useForm<SignUpInput>();
+
   return (
     <div className="w-full max-w-md">
       <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/[0.03] sm:p-8">
@@ -22,85 +24,74 @@ export default function SignUpForm() {
             </p>
           </div>
           <div>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="space-y-5">
+                {/* Name and Last Name */}
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                   <div className="sm:col-span-1">
                     <Label>
                       Nombre <span className="text-error-500">*</span>
                     </Label>
-                    <Input
-                      type="text"
-                      id="fname"
-                      name="fname"
-                      placeholder="Ej. María"
-                    />
+                    <input type="text" id="first_name" placeholder="Ej. María" {...register("first_name")} />
                   </div>
                   <div className="sm:col-span-1">
                     <Label>
                       Apellidos <span className="text-error-500">*</span>
                     </Label>
-                    <Input
-                      type="text"
-                      id="lname"
-                      name="lname"
-                      placeholder="Ej. García"
-                    />
+                    <input type="text" id="last_name" placeholder="Ej. García" {...register("last_name")} />
                   </div>
                 </div>
+                {/* Age and Weight Category */}
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                  <div className="sm:col-span-1">
+                    <Label>
+                      Edad <span className="text-error-500">*</span>
+                    </Label>
+                    <input type="number" id="age" placeholder="Ej. 20" {...register("age")} />
+                  </div>
+                  <div className="sm:col-span-1">
+                    <Label>
+                      Categoría de peso <span className="text-error-500">*</span>
+                    </Label>
+                      <input type="text" id="weight_category" placeholder="Ej. Pesado" {...register("weight_category")} />
+                  </div>
+                </div>
+
+                {/* Start Date and Gym */}
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                  <div className="sm:col-span-1">
+                    <Label>
+                      Fecha de inicio <span className="text-error-500">*</span>
+                    </Label>
+                    <input type="date" id="start_date" placeholder="Ej. 2026-01-01" {...register("start_date")} />
+                  </div>
+                  <div className="sm:col-span-1">
+                    <Label>
+                      Gym <span className="text-error-500">*</span>
+                    </Label>
+                    <input type="text" id="gym" placeholder="Ej. Gym 1" {...register("gym")} />
+                  </div>
+                </div>
+
+                {/* Email and Password */}
                 <div>
                   <Label>
                     Correo <span className="text-error-500">*</span>
                   </Label>
-                  <Input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="ejemplo@correo.com"
-                  />
+                  <input type="email" id="email" placeholder="ejemplo@correo.com" {...register("email")} />
                 </div>
                 <div>
                   <Label>
                     Contraseña <span className="text-error-500">*</span>
                   </Label>
                   <div className="relative">
-                    <Input
-                      placeholder="Introduce tu contraseña"
-                      type={showPassword ? "text" : "password"}
-                    />
-                    <span
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute z-30 -translate-y-1/2 cursor-pointer right-4 top-1/2"
-                    >
-                      {showPassword ? (
-                        <EyeIcon className="fill-gray-500 dark:fill-gray-400" />
-                      ) : (
-                        <EyeCloseIcon className="fill-gray-500 dark:fill-gray-400" />
-                      )}
-                    </span>
+                    <input type="password" id="password" placeholder="Introduce tu contraseña" {...register("password")} /> 
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Checkbox
-                    className="w-5 h-5"
-                    checked={isChecked}
-                    onChange={setIsChecked}
-                  />
-                  <p className="inline-block text-sm font-normal text-gray-500 dark:text-gray-400">
-                    Al registrarte aceptas los{" "}
-                    <span className="text-gray-800 dark:text-white/90">
-                      Términos y condiciones
-                    </span>{" "}
-                    y nuestra{" "}
-                    <span className="text-gray-800 dark:text-white/90">
-                      Política de privacidad
-                    </span>
-                    .
-                  </p>
-                </div>
+
                 <div>
                   <button
-                    type="button"
+                    type="submit"
                     className="flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white transition rounded-lg bg-brand-500 shadow-theme-xs hover:bg-brand-600"
                   >
                     Regístrate
