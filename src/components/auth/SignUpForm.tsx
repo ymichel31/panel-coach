@@ -29,6 +29,7 @@ export default function SignUpForm() {
                       Nombre <span className="text-error-500">*</span>
                     </Label>
                     <input
+                      className="h-11 w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
                       type="text"
                       id="fname"
                       name="fname"
@@ -40,6 +41,7 @@ export default function SignUpForm() {
                       Apellidos <span className="text-error-500">*</span>
                     </Label>
                     <input
+                      className="h-11 w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
                       type="text"
                       id="lname"
                       name="lname"
@@ -52,6 +54,7 @@ export default function SignUpForm() {
                     Correo <span className="text-error-500">*</span>
                   </Label>
                   <input
+                    className="h-11 w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
                     type="email"
                     id="email"
                     name="email"
@@ -64,6 +67,7 @@ export default function SignUpForm() {
                   </Label>
                   <div className="relative">
                     <input
+                      className="h-11 w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
                       placeholder="Introduce tu contraseña"
                       type={showPassword ? "text" : "password"}
                     />
