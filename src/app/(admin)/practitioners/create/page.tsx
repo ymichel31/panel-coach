@@ -3,7 +3,6 @@
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import ComponentCard from "@/components/common/ComponentCard";
 import Label from "@/components/form/Label";
-import Input from "@/components/form/input/InputField";
 import Button from "@/components/ui/button/Button";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -29,7 +28,7 @@ export default function CreatePractitionerPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <Label htmlFor="nombre">Nombre</Label>
-              <Input
+              <input
                 type="text"
                 id="nombre"
                 name="nombre"
@@ -40,7 +39,7 @@ export default function CreatePractitionerPage() {
             </div>
             <div>
               <Label htmlFor="apellido">Apellido</Label>
-              <Input
+              <input
                 type="text"
                 id="apellido"
                 name="apellido"
@@ -51,7 +50,7 @@ export default function CreatePractitionerPage() {
             </div>
             <div>
               <Label htmlFor="edad">Edad</Label>
-              <Input
+              <input
                 type="number"
                 id="edad"
                 name="edad"
@@ -59,29 +58,29 @@ export default function CreatePractitionerPage() {
                 min="1"
                 max="120"
                 value={edad}
-                onChange={(e) => setEdad(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEdad(e.target.value)}
               />
             </div>
             <div>
               <Label htmlFor="correo">Correo</Label>
-              <Input
+              <input
                 type="email"
                 id="correo"
                 name="correo"
                 placeholder="correo@ejemplo.com"
                 value={correo}
-                onChange={(e) => setCorreo(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCorreo(e.target.value)}
               />
             </div>
             <div>
               <Label htmlFor="experiencia">Experiencia</Label>
-              <Input
+                <input
                 type="text"
                 id="experiencia"
                 name="experiencia"
                 placeholder="Ej: 2 años, 6 meses..."
                 value={experiencia}
-                onChange={(e) => setExperiencia(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setExperiencia(e.target.value)}
               />
               <p className="mt-1.5 text-xs text-gray-500 dark:text-gray-400">
                 Tiempo que lleva practicando

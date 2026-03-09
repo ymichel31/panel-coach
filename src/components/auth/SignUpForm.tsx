@@ -1,10 +1,9 @@
 "use client";
 import Checkbox from "@/components/form/input/Checkbox";
-import Input from "@/components/form/input/InputField";
 import Label from "@/components/form/Label";
 import { EyeCloseIcon, EyeIcon } from "@/icons";
 import Link from "next/link";
-import React, { useState } from "react";
+import{ useState } from "react";
 
 export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -29,7 +28,7 @@ export default function SignUpForm() {
                     <Label>
                       Nombre <span className="text-error-500">*</span>
                     </Label>
-                    <Input
+                    <input
                       type="text"
                       id="fname"
                       name="fname"
@@ -40,7 +39,7 @@ export default function SignUpForm() {
                     <Label>
                       Apellidos <span className="text-error-500">*</span>
                     </Label>
-                    <Input
+                    <input
                       type="text"
                       id="lname"
                       name="lname"
@@ -52,7 +51,7 @@ export default function SignUpForm() {
                   <Label>
                     Correo <span className="text-error-500">*</span>
                   </Label>
-                  <Input
+                  <input
                     type="email"
                     id="email"
                     name="email"
@@ -64,7 +63,7 @@ export default function SignUpForm() {
                     Contraseña <span className="text-error-500">*</span>
                   </Label>
                   <div className="relative">
-                    <Input
+                    <input
                       placeholder="Introduce tu contraseña"
                       type={showPassword ? "text" : "password"}
                     />

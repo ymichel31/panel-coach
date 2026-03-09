@@ -3,7 +3,6 @@
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import ComponentCard from "@/components/common/ComponentCard";
 import Label from "@/components/form/Label";
-import Input from "@/components/form/input/InputField";
 import MultiSelect from "@/components/form/MultiSelect";
 import Button from "@/components/ui/button/Button";
 import { updateSkillAction } from "@/actions/skill";
@@ -84,7 +83,8 @@ export default function SkillEditForm({ skill }: { skill: Skill }) {
             )}
             <div>
               <Label htmlFor="nombre-habilidad">Nombre</Label>
-              <Input
+              <input
+                className="h-11 w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
                 type="text"
                 id="nombre-habilidad"
                 name="nombre-habilidad"
@@ -105,7 +105,8 @@ export default function SkillEditForm({ skill }: { skill: Skill }) {
             </div>
             <div>
               <Label htmlFor="max-score">Puntuación máxima</Label>
-              <Input
+              <input
+                className="h-11 w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
                 type="number"
                 id="max-score"
                 name="max-score"
