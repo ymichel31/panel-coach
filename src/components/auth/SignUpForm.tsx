@@ -26,14 +26,14 @@ export default function SignUpForm({ onSubmit }: Props) {
 
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleFormSubmit = async (data: SignUpInput) => {
+  /*const handleFormSubmit = async (data: SignUpInput) => {
     await onSubmit(data);
     setSuccessMessage("Registro exitoso");
     setTimeout(() => {
       setSuccessMessage("");
     }, 3000);
     reset();
-  };
+  };*/
 
   return (
     <div className="w-full max-w-md">
@@ -56,7 +56,7 @@ export default function SignUpForm({ onSubmit }: Props) {
               </div>
             )}
 
-            <form onSubmit={handleSubmit(handleFormSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="space-y-5">
 
                 {/* Name and Last Name */}
