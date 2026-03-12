@@ -1,4 +1,5 @@
 import SignUpForm from "@/components/auth/SignUpForm";
+import { signUpAction } from "@/actions/auth";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function SignUp() {
-  return <SignUpForm />;
+  return <SignUpForm onSubmit={signUpAction} />;
 }
