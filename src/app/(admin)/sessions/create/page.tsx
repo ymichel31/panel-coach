@@ -16,6 +16,13 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { createSessionAction } from "@/actions/session";
 
+/**
+ * TODO:
+ *  Debes de cambiar esta pagina para que se renderize desde el servidor y no desde el cliente.
+ *  Para poder usar las acciones del servidor, además crea un compoenente para el formulario 
+ *  Cuando termines de hacer el cambio que te pedi arriba, entonces ahí puedes usar las acciones de Skills y Categorias(este no esta creada aun la puedes crear la tabla es program_levels)
+ */
+
 export default function CreateSessionPage() {
   const router = useRouter();
   const [title, setTitle] = useState("");
