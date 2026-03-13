@@ -1,29 +1,15 @@
-import { DataListPage } from "@/components/common/DataListPage";
+import { SkillList } from "@/components/skills/SkillList";
 import { getSkillsAction, deleteSkillAction } from "@/actions/skill";
 import { Metadata } from "next";
-import React from "react";
 
 export const metadata: Metadata = {
-  title: "Habilidades | Panel Coach",
+  title: "Habilidades",
   description: "Listado de habilidades",
 };
 
-type HabilidadRow = {
-  id: string;
-  name: string;
-  category: string;
-  maxScore: number;
-};
-
-const columns = [
-  { key: "name" as const, header: "Nombre" },
-  { key: "category" as const, header: "Categoría" },
-  { key: "maxScore" as const, header: "Puntuación máx." },
-];
-
 export default async function SkillsPage() {
   const list = await getSkillsAction();
-  const data: HabilidadRow[] = (list ?? []).map(
+  const data = (list ?? []).map(
     (s: {
       id: string;
       name?: string;
@@ -39,11 +25,10 @@ export default async function SkillsPage() {
   );
 
   return (
-    <DataListPage<HabilidadRow>
+    <SkillList
       pageTitle="Habilidades"
       createButtonLabel="Crear habilidad"
       createHref="/skills/create"
-      columns={columns}
       data={data}
       emptyMessage='No hay habilidades. Haz clic en "Crear habilidad" para añadir una.'
       editHrefPrefix="/skills/edit/"

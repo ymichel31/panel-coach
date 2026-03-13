@@ -2,7 +2,6 @@
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import ComponentCard from "@/components/common/ComponentCard";
 import Label from "@/components/form/Label";
-import Input from "@/components/form/input/InputField";
 import TextArea from "@/components/form/input/TextArea";
 import MultiSelect from "@/components/form/MultiSelect";
 import SessionDateTimeField from "@/components/sessions/SessionDateTimeField";
@@ -73,12 +72,13 @@ export default function CreateSessionPage() {
               <div className="space-y-6">
                 <div>
                   <Label>Nombre</Label>
-                  <Input
+                  <input
                     type="text"
+                    className="h-11 w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
                     placeholder="Nombre de la sesión"
                     value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                  />
+                  onChange={(e) => setTitle(e.target.value)}
+                />
                 </div>
                 <SessionDateTimeField
                   datePart={datePart}

@@ -2,7 +2,6 @@
 import { ThemeToggleButton } from "@/components/common/ThemeToggleButton";
 import UserDropdown from "@/components/header/UserDropdown";
 import { useSidebar } from "@/context/SidebarContext";
-import Image from "next/image";
 import Link from "next/link";
 import React, { useState ,useEffect,useRef} from "react";
 
@@ -82,25 +81,8 @@ const AppHeader: React.FC = () => {
             {/* Cross Icon */}
           </button>
 
-          <Link href="/" className="lg:hidden">
-            <Image
-              width={154}
-              height={32}
-              className="dark:hidden h-auto"
-              src="/images/logo/logo.svg"
-              alt="Logo"
-              loading="eager"
-              style={{ height: "auto" }}
-            />
-            <Image
-              width={154}
-              height={32}
-              className="hidden dark:block h-auto"
-              src="/images/logo/logo-dark.svg"
-              alt="Logo"
-              loading="eager"
-              style={{ height: "auto" }}
-            />
+          <Link href="/sessions" className="lg:hidden font-semibold text-gray-800 dark:text-white/90 text-2xl">
+            Tribu Performance
           </Link>
 
           <button
