@@ -1,8 +1,7 @@
 import { getSessionByIdAction } from "@/actions/session";
-import SessionEditForm from "./SessionEditForm";
+import SessionEditForm from "../../../../../components/sessions/SessionEditForm";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import React from "react";
 
 export const metadata: Metadata = {
   title: "Editar sesión",
