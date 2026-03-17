@@ -11,6 +11,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 import { createSessionAction } from "@/actions/session";
+import dayjs from "dayjs";
+
 
 type SessionFormProps = {
   skills: any[];
@@ -69,16 +71,16 @@ export default function SessionForm({ skills, programLevels }: SessionFormProps)
       alert("Fecha y hora son obligatorias");
       return;
     }
-
-    const date = `${data.datePart}T${data.timePart}`;
-
+  
+    const date = dayjs(`${data.datePart} ${data.timePart}`).toISOString();
+  
     try {
       const result = await createSessionAction({
         title: data.title,
         date,
         description: data.description,
       });
-
+  
       if (result) {
         router.push("/sessions");
         router.refresh();
