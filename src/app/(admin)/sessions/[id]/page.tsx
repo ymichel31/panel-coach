@@ -17,6 +17,7 @@ export default async function SessionDetailPage({ params }: Props) {
 
   if (!session) return notFound();
 
+  // TODO: Esto lo podemos mover a un tipo de dato y tipar la en el retorno de la función getSessionById
   const row = session as {
     title: string;
     description: string;

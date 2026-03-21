@@ -17,6 +17,7 @@ export default async function SkillDetailPage({ params }: Props) {
 
   if (!skill) return notFound();
 
+  // TODO: Esto lo podemos mover a un tipo de dato y tipar la en el retorno de la función getSkillById
   const row = skill as {
     name: string;
     category?: string;
