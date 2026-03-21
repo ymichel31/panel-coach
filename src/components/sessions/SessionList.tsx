@@ -9,6 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Link from "next/link";
+import { formatDate } from "../utils/date";
 
 export type SessionRow = {
   id: string;
@@ -83,7 +84,7 @@ export function SessionList({
                       {row.title}
                     </TableCell>
                     <TableCell className="px-5 py-4 text-gray-500 text-theme-sm dark:text-gray-400">
-                      {row.date}
+                    {formatDate(row.date)}
                     </TableCell>
                     <TableCell className="px-5 py-4 text-gray-500 text-theme-sm dark:text-gray-400">
                       {row.description}

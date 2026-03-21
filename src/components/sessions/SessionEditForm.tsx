@@ -16,16 +16,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { updateSessionAction } from "@/actions/session";
-
+import dayjs from "dayjs";
+import { parseDateToParts } from "../utils/date";
 type Session = { id: string; title?: string; date?: string; description?: string };
 
-function parseDateToParts(isoDate: string | undefined): { datePart: string; timePart: string } {
-  if (!isoDate || isoDate.length < 16) return { datePart: "", timePart: "" };
-  return {
-    datePart: isoDate.slice(0, 10),
-    timePart: isoDate.slice(11, 16),
-  };
-}
 
 export default function SessionEditForm({ session }: { session: Session }) {
   const router = useRouter();
@@ -49,7 +43,7 @@ export default function SessionEditForm({ session }: { session: Session }) {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const date = datePart && timePart ? `${datePart}T${timePart}` : "";
+    const date = datePart && timePart ? dayjs(`${datePart} ${timePart}`).toISOString() : "";
     if (!title.trim() || !date) {
       setError("Nombre, fecha y hora son obligatorios.");
       return;
