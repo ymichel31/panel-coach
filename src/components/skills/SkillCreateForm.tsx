@@ -5,23 +5,21 @@ import ComponentCard from "@/components/common/ComponentCard";
 import Label from "@/components/form/Label";
 import MultiSelect from "@/components/form/MultiSelect";
 import Button from "@/components/ui/button/Button";
-import { updateSkillAction } from "@/actions/skill";
+import { createSkillAction } from "@/actions/skill";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { Skill, SkillCategory } from "@/types/skill";
+import { SkillCategory } from "@/types/skill";
 
 type Props = {
-  skill: Skill;
   skillsCategories: SkillCategory[];
 }
 
-export default function SkillEditForm({ skill, skillsCategories }: Props) {
+export default function CreateSkillPage({ skillsCategories }: Props) {
   const router = useRouter();
-  const maxScoreVal = skill.max_score ?? 0;
-  const [name, setName] = useState(skill.name ?? "");
-  const [category, setCategory] = useState(skill.category_id ?? "");
-  const [maxScore, setMaxScore] = useState(String(maxScoreVal));
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
+  const [maxScore, setMaxScore] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -49,8 +47,7 @@ export default function SkillEditForm({ skill, skillsCategories }: Props) {
     setError(null);
     setIsSubmitting(true);
     try {
-      const result = await updateSkillAction({
-        id: skill.id,
+      const result = await createSkillAction({
         name: name.trim(),
         category: category.trim(),
         maxScore: scoreNum,
@@ -59,10 +56,10 @@ export default function SkillEditForm({ skill, skillsCategories }: Props) {
         router.push("/skills");
         router.refresh();
       } else {
-        setError("No se pudo actualizar la habilidad. Revisa la consola del servidor.");
+        setError("No se pudo crear la habilidad. Revisa la consola del servidor.");
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Error al actualizar la habilidad.");
+      setError(err instanceof Error ? err.message : "Error al crear la habilidad.");
     } finally {
       setIsSubmitting(false);
     }
@@ -70,7 +67,7 @@ export default function SkillEditForm({ skill, skillsCategories }: Props) {
 
   return (
     <div>
-      <PageBreadcrumb pageTitle="Editar habilidad" />
+      <PageBreadcrumb pageTitle="Crear habilidad" />
 
       <div className="max-w-2xl space-y-6">
         <ComponentCard>
@@ -81,8 +78,8 @@ export default function SkillEditForm({ skill, skillsCategories }: Props) {
             <div>
               <Label htmlFor="nombre-habilidad">Nombre</Label>
               <input
-                className="h-11 w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
                 type="text"
+                className="h-11 w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
                 id="nombre-habilidad"
                 name="nombre-habilidad"
                 placeholder="Nombre de la habilidad"

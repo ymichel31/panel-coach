@@ -4,9 +4,14 @@ import { revalidatePath } from 'next/cache';
 
 import type { SkillInput } from '@/types/skill';
 import { createSkill, deleteSkill, getSkillById, getSkills, updateSkill } from '@/services/skill';
+import { getSkillsCategories } from '@/services/skill';
 
 export async function getSkillsAction() {
   return await getSkills();
+}
+
+export async function getSkillsCategoriesAction() {
+  return await getSkillsCategories();
 }
 
 export async function getSkillByIdAction(id: string) {

@@ -9,21 +9,13 @@ export const metadata: Metadata = {
 
 export default async function SessionsPage() {
   const sessions = await getSessionsAction();
-  const data = (sessions ?? []).map(
-    (s: { id: string; title?: string; date?: string; description?: string }) => ({
-      id: s.id,
-      title: s.title ?? "",
-      date: s.date ?? "",
-      description: s.description ?? "",
-    })
-  );
-
+  
   return (
     <SessionList
       pageTitle="Sesiones"
       createButtonLabel="Crear sesión"
       createHref="/sessions/create"
-      data={data}
+      data={sessions ?? []}
       emptyMessage='No hay sesiones. Haz clic en "Crear sesión" para añadir una.'
       editHrefPrefix="/sessions/edit/"
       deleteAction={deleteSessionAction}

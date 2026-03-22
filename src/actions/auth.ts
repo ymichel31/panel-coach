@@ -16,6 +16,7 @@ export async function signUpAction(input: SignUpInput) {
         last_name: input.last_name,
         age: input.age,
         weight_category: input.weight_category,
+        weight: input.weight,
         start_date: input.start_date,
         gym: input.gym,
     });

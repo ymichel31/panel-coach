@@ -1,0 +1,1 @@
+export const PRACTITIONER_EVALUATOR_LEVEL = 4; // This is the level allow to be an evaluator

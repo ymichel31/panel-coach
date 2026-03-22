@@ -3,6 +3,9 @@ import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import { getSessionById } from "@/services/session";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { formatDate } from "@/utils/date";
+
+
 
 type Props = {
   params: Promise<{
@@ -17,14 +20,6 @@ export default async function SessionDetailPage({ params }: Props) {
 
   if (!session) return notFound();
 
-  // TODO: Esto lo podemos mover a un tipo de dato y tipar la en el retorno de la función getSessionById
-  const row = session as {
-    title: string;
-    description: string;
-    date?: string;
-    id?: string;
-  };
-
   return (
     <div>
       <PageBreadcrumb pageTitle="Detalle de sesión" />
@@ -35,19 +30,19 @@ export default async function SessionDetailPage({ params }: Props) {
             <div>
               <Label>Nombre</Label>
               <p className="mt-1.5 text-theme-sm text-gray-800 dark:text-white/90">
-                {row.title}
+                {session.title}
               </p>
             </div>
             <div>
               <Label>Fecha y hora</Label>
               <p className="mt-1.5 text-theme-sm text-gray-800 dark:text-white/90">
-                {row.date}
+                {formatDate(session.date)}
               </p>
             </div>
             <div>
               <Label>Descripción</Label>
               <p className="mt-1.5 text-theme-sm text-gray-800 dark:text-white/90 whitespace-pre-wrap">
-                {row.description?.trim() ? row.description : "Sin descripción."}
+                {session.description?.trim() ? session.description : "Sin descripción."}
               </p>
             </div>
           </div>
