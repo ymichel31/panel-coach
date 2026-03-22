@@ -4,3 +4,9 @@ export type SessionInput = {
   description: string;
 };
 
+export type Session = {
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+};

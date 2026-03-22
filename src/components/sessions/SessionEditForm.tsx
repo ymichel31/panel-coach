@@ -17,7 +17,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { updateSessionAction } from "@/actions/session";
 import dayjs from "dayjs";
-import { parseDateToParts } from "../utils/date";
+import { parseDateToParts } from "../../utils/date";
 type Session = { id: string; title?: string; date?: string; description?: string };
 
 
