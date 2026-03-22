@@ -68,3 +68,14 @@ export const deleteSkill = async (id: string) => {
     }
     return data;
 }
+
+
+export const getSkillsCategories = async () => {
+  const supabase = await createClient();
+  const { data, error } = await supabase.from('skills_categories').select('*');
+  if (error) {
+    console.error(error);
+    return [];
+  }
+  return data ?? [];
+}

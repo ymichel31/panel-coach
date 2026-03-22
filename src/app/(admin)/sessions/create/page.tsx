@@ -1,5 +1,5 @@
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
-import SessionForm from "@/components/sessions/SessionForm";
+import SessionCreateForm from "@/components/sessions/SessionCreateForm";
 import { getProgramLevelsAction } from "@/actions/programLevel";
 import { getPractitionerEvaluatorsAction } from "@/actions/practitioner";
 
@@ -10,7 +10,7 @@ export default async function CreateSessionPage() {
   return (
     <div>
       <PageBreadcrumb pageTitle="Crear Sesión" />
-      <SessionForm
+      <SessionCreateForm
         programLevels={programLevels ?? []}
         evaluators={evaluators ?? []}
       />

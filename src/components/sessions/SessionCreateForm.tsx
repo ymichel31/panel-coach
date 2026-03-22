@@ -30,7 +30,7 @@ type SessionFormInput = {
   evaluadores: string[];
 };
 
-export default function SessionForm({ programLevels, evaluators }: SessionFormProps) {
+export default function SessionCreateForm({ programLevels, evaluators }: SessionFormProps) {
   const router = useRouter();
 
   const {

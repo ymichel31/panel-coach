@@ -7,8 +7,15 @@ export type SkillInput = {
 export type Skill = {
   id: string;
   name: string;
-  category: string;
+  category_id: string;
   max_score: number;
+  created_at: string;
+  updated_at: string;
+};
+
+export type SkillCategory = {
+  id: string;
+  category: string;
   created_at: string;
   updated_at: string;
 };
