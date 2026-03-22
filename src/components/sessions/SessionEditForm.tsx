@@ -12,10 +12,10 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { updateSessionAction } from "@/actions/session";
 import dayjs from "dayjs";
-import { parseDateToParts } from "../utils/date";
 import { Practitioner } from "@/types/practitioner";
 import { Session } from "@/types/session";
 import { ProgramLevel } from "@/types/programLevel";
+import { parseDateToParts } from "@/utils/date";
 
 type SessionEditFormProps = {
   session: Session;

@@ -4,6 +4,7 @@ import {
   TableBody,
   TableCell,
   TableRow,
+  TableHeader,
 } from "@/components/ui/table";
 import { Practitioner } from "@/types/practitioner";
 
@@ -23,6 +24,31 @@ export function PractitionerList({ pageTitle, data, emptyMessage }: Practitioner
       <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
         <div className="max-w-full overflow-x-auto">
           <Table>
+            <TableHeader className="border-b border-gray-100 dark:border-white/[0.05]">
+              <TableRow>
+                <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
+                  Nombre
+                </TableCell>
+                <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
+                  Apellido
+                </TableCell>
+                <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
+                  Edad
+                </TableCell>
+                <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
+                  Categoría de peso
+                </TableCell>
+                <TableCell isHeader className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
+                  Peso actual
+                </TableCell>
+                <TableCell
+                  isHeader
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400 w-40 text-end"
+                >
+                  Gimnasio
+                </TableCell>
+              </TableRow>
+            </TableHeader>
             <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
               {data.length === 0 ? (
                 <TableRow>
@@ -42,6 +68,9 @@ export function PractitionerList({ pageTitle, data, emptyMessage }: Practitioner
                     <TableCell className="px-5 py-4 text-gray-500 text-theme-sm dark:text-gray-400">{row.age}</TableCell>
                     <TableCell className="px-5 py-4 text-gray-500 text-theme-sm dark:text-gray-400">
                       {row.weight_category}
+                    </TableCell>
+                    <TableCell className="px-5 py-4 text-gray-500 text-theme-sm dark:text-gray-400">
+                      peso actual
                     </TableCell>
                     <TableCell className="px-5 py-4 text-gray-500 text-theme-sm dark:text-gray-400">{row.gym}</TableCell>
                   </TableRow>

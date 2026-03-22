@@ -106,6 +106,7 @@ export default function SignUpForm({ onSubmit }: Props) {
                     />
                   </div>
 
+                  {/* Weight Category */}
                   <div className="sm:col-span-1">
                     <Label>
                       Categoría de peso <span className="text-error-500">*</span>
@@ -117,6 +118,33 @@ export default function SignUpForm({ onSubmit }: Props) {
                       id="weight_category"
                       placeholder="Ej. Pesado"
                       {...register("weight_category")}
+                    />
+                  </div>
+
+                  {/* Current Weight */}
+                  <div className="sm:col-span-1">
+                    <Label>
+                      Peso actual <span className="text-error-500">*</span>
+                    </Label>
+                    <input
+                      className="h-11 w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
+                      type="text"
+                      placeholder="Ej. 80 kg"
+                    />
+                  </div>
+
+                  {/* Gym */}
+                  <div className="sm:col-span-1">
+                    <Label>
+                      Gym <span className="text-error-500">*</span>
+                    </Label>
+
+                    <input
+                      className="h-11 w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
+                      type="text"
+                      id="gym"
+                      placeholder="Ej. Gym 1"
+                      {...register("gym")}
                     />
                   </div>
 
@@ -136,20 +164,6 @@ export default function SignUpForm({ onSubmit }: Props) {
                           onChange={field.onChange}
                         />
                       )}
-                    />
-                  </div>
-
-                  <div className="sm:col-span-1">
-                    <Label>
-                      Gym <span className="text-error-500">*</span>
-                    </Label>
-
-                    <input
-                      className="h-11 w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
-                      type="text"
-                      id="gym"
-                      placeholder="Ej. Gym 1"
-                      {...register("gym")}
                     />
                   </div>
 

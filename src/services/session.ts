@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 
+import type { Session } from "@/types/session";
 import type { SessionInput } from "@/types/session";
 
 export const getSessions = async () => {
@@ -12,7 +13,7 @@ export const getSessions = async () => {
   return data ?? [];
 }
 
-export const getSessionById = async (id: string) => {
+export const getSessionById = async (id: string): Promise<Session | null> => {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("sessions")
@@ -23,7 +24,7 @@ export const getSessionById = async (id: string) => {
     console.error(error);
     return null;
   }
-  return data;
+  return data as Session | null;
 }
 
 export const createSession = async (session: SessionInput) => {

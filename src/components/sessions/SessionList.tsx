@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Link from "next/link";
-import { formatDate } from "../utils/date";
+import { formatDate } from "../../utils/date";
 
 export type SessionRow = {
   id: string;
