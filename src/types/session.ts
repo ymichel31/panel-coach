@@ -7,6 +7,8 @@ export type SessionInput = {
 export type Session = {
   id: string;
   title: string;
-  description: string;
   date: string;
+  description: string;
+  created_at: string;
+  updated_at: string;
 };

@@ -6,19 +6,11 @@ import {
   TableRow,
   TableHeader,
 } from "@/components/ui/table";
-
-export type PractitionerRow = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  age: number;
-  weightCategory: string;
-  gym: string;
-};
+import { Practitioner } from "@/types/practitioner";
 
 type PractitionerListProps = {
   pageTitle: string;
-  data: PractitionerRow[];
+  data: Practitioner[];
   emptyMessage: string;
 };
 
@@ -66,16 +58,16 @@ export function PractitionerList({ pageTitle, data, emptyMessage }: Practitioner
                 </TableRow>
               ) : (
                 data.map((row) => (
-                  <TableRow key={row.id}>
+                  <TableRow key={row.practitioner_id}>
                     <TableCell className="px-5 py-4 text-gray-800 text-theme-sm dark:text-white/90">
-                      {row.firstName}
+                      {row.first_name}
                     </TableCell>
                     <TableCell className="px-5 py-4 text-gray-500 text-theme-sm dark:text-gray-400">
-                      {row.lastName}
+                      {row.last_name}
                     </TableCell>
                     <TableCell className="px-5 py-4 text-gray-500 text-theme-sm dark:text-gray-400">{row.age}</TableCell>
                     <TableCell className="px-5 py-4 text-gray-500 text-theme-sm dark:text-gray-400">
-                      {row.weightCategory}
+                      {row.weight_category}
                     </TableCell>
                     <TableCell className="px-5 py-4 text-gray-500 text-theme-sm dark:text-gray-400">
                       peso actual

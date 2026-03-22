@@ -1,21 +1,26 @@
-import { getSkillByIdAction } from "@/actions/skill";
-import SkillEditForm from "../../../../../components/skills/SkillEditForm";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import React from "react";
+import { getSkillByIdAction, getSkillsCategoriesAction } from "@/actions/skill";
+import SkillEditForm from "@/components/skills/SkillEditForm";
 
 export const metadata: Metadata = {
   title: "Editar habilidad",
   description: "Editar habilidad",
 };
 
+type Props = {
+  params: Promise<{ id: string }>;
+}
+
 export default async function EditSkillPage({
   params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+}: Props) {
   const { id } = await params;
   const skill = await getSkillByIdAction(id);
+  const skillsCategories = await getSkillsCategoriesAction();
+
   if (!skill) notFound();
-  return <SkillEditForm skill={skill} />;
+  if (!skillsCategories) notFound();
+  
+  return <SkillEditForm skill={skill} skillsCategories={skillsCategories} />;
 }

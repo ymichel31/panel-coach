@@ -1,5 +1,5 @@
 'use server';
-import { getPractitionerById, getPractitioners } from '@/services/practitioner';
+import { getPractitionerById, getPractitioners, getPractitionerEvaluators } from '@/services/practitioner';
 
 export async function getPractitionersAction() {
   return getPractitioners();
@@ -7,4 +7,8 @@ export async function getPractitionersAction() {
 
 export async function getPractitionerByIdAction(id: string) {
   return getPractitionerById(id);
+}
+
+export async function getPractitionerEvaluatorsAction() {
+  return getPractitionerEvaluators();
 }
