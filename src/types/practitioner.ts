@@ -5,6 +5,7 @@ export type PractitionerInput = {
   age: number;
   weight_category: string;
   start_date: string;
+  weight: number;
   gym: string;
 };
 
