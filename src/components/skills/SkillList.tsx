@@ -80,7 +80,12 @@ export function SkillList({
                 data.map((row) => (
                   <TableRow key={row.id}>
                     <TableCell className="px-5 py-4 text-gray-800 text-theme-sm dark:text-white/90">
-                      {row.name}
+                      <Link
+                        href={`/skills/${row.id}`}
+                        className="text-brand-400 hover:text-brand-500 hover:underline dark:text-brand-300 dark:hover:text-brand-400"
+                      >
+                        {row.name}
+                      </Link>
                     </TableCell>
                     <TableCell className="px-5 py-4 text-gray-500 text-theme-sm dark:text-gray-400">
                       {row.category}
