@@ -7,27 +7,29 @@ import TextArea from "@/components/form/input/TextArea";
 import MultiSelect from "@/components/form/MultiSelect";
 import SessionDateTimeField from "@/components/sessions/SessionDateTimeField";
 import Button from "@/components/ui/button/Button";
-import {
-  categoriasOptions,
-  evaluadoresOptions,
-  habilidadesOptions,
-} from "@/constants/sessionForm";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { updateSessionAction } from "@/actions/session";
 import dayjs from "dayjs";
 import { parseDateToParts } from "../utils/date";
-type Session = { id: string; title?: string; date?: string; description?: string };
+import { Practitioner } from "@/types/practitioner";
+import { Session } from "@/types/session";
+import { ProgramLevel } from "@/types/programLevel";
 
+type SessionEditFormProps = {
+  session: Session;
+  evaluators: Practitioner[];
+  programLevels: ProgramLevel[];
+};
 
-export default function SessionEditForm({ session }: { session: Session }) {
+export default function SessionEditForm({ session, evaluators, programLevels }: SessionEditFormProps) {
   const router = useRouter();
   const { datePart: initialDate, timePart: initialTime } = parseDateToParts(session.date);
-  const [title, setTitle] = useState(session.title ?? "");
+  const [title, setTitle] = useState(session.title);
   const [datePart, setDatePart] = useState(initialDate);
   const [timePart, setTimePart] = useState(initialTime);
-  const [description, setDescription] = useState(session.description ?? "");
+  const [description, setDescription] = useState(session.description);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -37,9 +39,20 @@ export default function SessionEditForm({ session }: { session: Session }) {
   const handleCategoriaChange = (selected: string[]) => {
     console.log("Categoría seleccionada:", selected[0] ?? "");
   };
-  const handleHabilidadesChange = (selected: string[]) => {
-    console.log("Habilidades seleccionadas:", selected);
-  };
+
+  const categoriasOptions = programLevels.map((programLevel) => ({
+    value: programLevel.id.toString(),
+    text: programLevel.sublevel
+      ? `${programLevel.level} - ${programLevel.sublevel}`
+      : programLevel.level,
+    selected: false,
+  }));
+
+  const evaluadoresOptions = evaluators.map((evaluator) => ({
+    value: evaluator.practitioner_id,
+    text: `${evaluator.first_name} ${evaluator.last_name}`,
+    selected: false,
+  }));
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -109,9 +122,9 @@ export default function SessionEditForm({ session }: { session: Session }) {
         <div className="space-y-6">
           <ComponentCard>
             <MultiSelect
-              label="Categoría"
+              label="Nivel del programa"
               options={categoriasOptions}
-              placeholder="Selecciona categoría"
+              placeholder="Selecciona nivel del programa"
               onChange={handleCategoriaChange}
               defaultSelected={[]}
               multiple={false}
@@ -121,17 +134,8 @@ export default function SessionEditForm({ session }: { session: Session }) {
             <MultiSelect
               label="Evaluadores"
               options={evaluadoresOptions}
-              placeholder="Selecciona evaluador"
+              placeholder="Selecciona evaluadores"
               onChange={handleEvaluadoresChange}
-              defaultSelected={[]}
-            />
-          </ComponentCard>
-          <ComponentCard>
-            <MultiSelect
-              label="Habilidades"
-              options={habilidadesOptions}
-              placeholder="Selecciona habilidades"
-              onChange={handleHabilidadesChange}
               defaultSelected={[]}
             />
           </ComponentCard>

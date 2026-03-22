@@ -6,17 +6,18 @@ import TextArea from "@/components/form/input/TextArea";
 import MultiSelect from "@/components/form/MultiSelect";
 import SessionDateTimeField from "@/components/sessions/SessionDateTimeField";
 import Button from "@/components/ui/button/Button";
-import { evaluadoresOptions } from "@/constants/sessionForm";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 import { createSessionAction } from "@/actions/session";
 import dayjs from "dayjs";
+import { Practitioner } from "@/types/practitioner";
+import { ProgramLevel } from "@/types/programLevel";
 
 
 type SessionFormProps = {
-  skills: any[];
-  programLevels: any[];
+  programLevels: ProgramLevel[];
+  evaluators: Practitioner[];
 };
 
 type SessionFormInput = {
@@ -29,7 +30,7 @@ type SessionFormInput = {
   evaluadores: string[];
 };
 
-export default function SessionForm({ skills, programLevels }: SessionFormProps) {
+export default function SessionForm({ programLevels, evaluators }: SessionFormProps) {
   const router = useRouter();
 
   const {
@@ -52,17 +53,17 @@ export default function SessionForm({ skills, programLevels }: SessionFormProps)
   });
 
 
-  const habilidadesOptions = skills.map((skill) => ({
-    value: skill.id,
-    text: skill.name,
-    selected: false,
-  }));
-
   const categoriasOptions = programLevels.map((programLevel) => ({
-    value: programLevel.id,
+    value: programLevel.id.toString(),
     text: programLevel.sublevel
       ? `${programLevel.level} - ${programLevel.sublevel}`
       : programLevel.level,
+    selected: false,
+  }));
+
+  const evaluadoresOptions = evaluators.map((evaluator) => ({
+    value: evaluator.practitioner_id,
+    text: `${evaluator.first_name} ${evaluator.last_name}`,
     selected: false,
   }));
 
@@ -151,9 +152,9 @@ export default function SessionForm({ skills, programLevels }: SessionFormProps)
             control={control}
             render={({ field }) => (
               <MultiSelect
-                label="Categoría"
+                label="Nivel del programa"
                 options={categoriasOptions}
-                placeholder="Selecciona categoría"
+                placeholder="Selecciona nivel del programa"
                 onChange={(selected) => field.onChange(selected[0] ?? "")}
                 defaultSelected={[]}
                 multiple={false}
@@ -170,23 +171,7 @@ export default function SessionForm({ skills, programLevels }: SessionFormProps)
               <MultiSelect
                 label="Evaluadores"
                 options={evaluadoresOptions}
-                placeholder="Selecciona evaluador"
-                onChange={field.onChange}
-                defaultSelected={[]}
-              />
-            )}
-          />
-        </ComponentCard>
-
-        <ComponentCard>
-          <Controller
-            name="habilidades"
-            control={control}
-            render={({ field }) => (
-              <MultiSelect
-                label="Habilidades"
-                options={habilidadesOptions}
-                placeholder="Selecciona habilidades"
+                placeholder="Selecciona evaluadores"
                 onChange={field.onChange}
                 defaultSelected={[]}
               />
