@@ -18,6 +18,7 @@ export type Practitioner = {
   start_date: string;
   gym: string;
   program_level_id: number;
+  weight: number;
   created_at: string;
   updated_at: string;
 };
