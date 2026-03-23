@@ -1,6 +1,6 @@
 import { PRACTITIONER_EVALUATOR_LEVEL } from "@/constants/programLevels";
 import { createClient } from "@/lib/supabase/server";
-import { PractitionerInput } from "@/types/practitioner";
+import type { Practitioner, PractitionerInput } from "@/types/practitioner";
 
 export const getPractitioners = async () => {
   const supabase = await createClient();
@@ -12,17 +12,18 @@ export const getPractitioners = async () => {
   return data;
 };
 
-export const getPractitionerById = async (id: string) => {
+export const getPractitionerById = async (practitionerId: string): Promise<Practitioner | null> => {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("practitioners")
     .select("*")
-    .eq("id", id);
+    .eq("practitioner_id", practitionerId)
+    .maybeSingle();
   if (error) {
     console.error(error);
     return null;
   }
-  return data;
+  return data as Practitioner | null;
 };
 
 
