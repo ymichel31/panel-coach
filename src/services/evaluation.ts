@@ -17,14 +17,14 @@ export const getEvaluations = async (): Promise<Evaluation[]> => {
 };
 
 export const getEvaluationById = async (
-  evaluationId: string
+  id: number
 ): Promise<Evaluation | null> => {
   const supabase = await createClient();
 
   const { data, error } = await supabase
     .from("evaluations")
     .select("*")
-    .eq("id", evaluationId)
+    .eq("id", id)
     .maybeSingle();
 
   if (error) {
