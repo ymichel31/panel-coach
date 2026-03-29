@@ -7,6 +7,7 @@ import {
   TableHeader,
 } from "@/components/ui/table";
 import { Practitioner } from "@/types/practitioner";
+import Link from "next/link";
 
 type PractitionerListProps = {
   pageTitle: string;
@@ -60,7 +61,12 @@ export function PractitionerList({ pageTitle, data, emptyMessage }: Practitioner
                 data.map((row) => (
                   <TableRow key={row.practitioner_id}>
                     <TableCell className="px-5 py-4 text-gray-800 text-theme-sm dark:text-white/90">
-                      {row.first_name}
+                      <Link
+                        href={`/practitioners/${row.practitioner_id}`}
+                        className="text-brand-400 hover:text-brand-500 hover:underline dark:text-brand-300 dark:hover:text-brand-400"
+                      >
+                        {row.first_name}
+                      </Link>
                     </TableCell>
                     <TableCell className="px-5 py-4 text-gray-500 text-theme-sm dark:text-gray-400">
                       {row.last_name}
@@ -70,7 +76,7 @@ export function PractitionerList({ pageTitle, data, emptyMessage }: Practitioner
                       {row.weight_category}
                     </TableCell>
                     <TableCell className="px-5 py-4 text-gray-500 text-theme-sm dark:text-gray-400">
-                      peso actual
+                      {row.weight}
                     </TableCell>
                     <TableCell className="px-5 py-4 text-gray-500 text-theme-sm dark:text-gray-400">{row.gym}</TableCell>
                   </TableRow>
