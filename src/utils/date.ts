@@ -8,6 +8,9 @@ export function formatDate(dateString: string) {
   return dayjs.utc(dateString).local().format("DD/MM/YYYY hh:mm A");
 }
 
+export function formatDateToLocal(dateString: string) {
+  return dayjs.utc(dateString).local().format("DD/MM/YYYY");
+}
 
 export function parseDateToParts(isoDate: string | undefined) {
   if (!isoDate) return { datePart: "", timePart: "" };
