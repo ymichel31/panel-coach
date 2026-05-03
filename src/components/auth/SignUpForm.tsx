@@ -25,14 +25,22 @@ export default function SignUpForm({ onSubmit }: Props) {
 
   const [successMessage, setSuccessMessage] = useState("");
 
-  /*const handleFormSubmit = async (data: SignUpInput) => {
-    await onSubmit(data);
-    setSuccessMessage("Registro exitoso");
-    setTimeout(() => {
-      setSuccessMessage("");
-    }, 3000);
-    reset();
-  };*/
+  const handleFormSubmit = async (data: SignUpInput) => {
+    try {
+      await onSubmit(data);
+  
+      setSuccessMessage("Registro exitoso");
+  
+      reset();
+  
+      setTimeout(() => {
+        setSuccessMessage("");
+      }, 3000);
+  
+    } catch (error) {
+      console.error("Error al registrar:", error);
+    }
+  };
 
   return (
     <div className="w-full max-w-md">
@@ -55,7 +63,7 @@ export default function SignUpForm({ onSubmit }: Props) {
               </div>
             )}
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(handleFormSubmit)}>
               <div className="space-y-5">
 
                 {/* Name and Last Name */}
