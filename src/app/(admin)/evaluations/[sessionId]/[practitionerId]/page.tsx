@@ -3,28 +3,30 @@ import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { formatDateToLocal } from "@/utils/date";
-import { getEvaluationByIdAction } from "@/actions/evaluation";
+import { getEvaluationsBySessionAndPractitionerAction } from "@/actions/evaluation";
 
 
 
 type Props = {
   params: Promise<{
-    id: string;
+    sessionId: number;
+    practitionerId: string;
   }>;
 };
 
 export default async function EvaluationDetailPage({ params }: Props) {
-  const { id } = await params;
+  const { sessionId, practitionerId } = await params;
 
-  const evaluation = await getEvaluationByIdAction(id);
+  const evaluation = await getEvaluationsBySessionAndPractitionerAction(sessionId, practitionerId);
 
-  if (!evaluation) return notFound();
+  if (evaluation?.length === 0) return notFound();
+  console.log(evaluation);
 
   return (
     <div>
       <PageBreadcrumb pageTitle="Detalle de evaluación" />
 
-      <div className="max-w-md w-full space-y-6">
+{/*       <div className="max-w-md w-full space-y-6">
         <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
           <div className="px-4 py-4 sm:px-5 sm:py-5 space-y-4">
             <div>
@@ -62,7 +64,7 @@ export default async function EvaluationDetailPage({ params }: Props) {
             Volver al listado
           </Link>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

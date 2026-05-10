@@ -10,11 +10,15 @@ export const metadata: Metadata = {
 export default async function EvaluationsPage() {
   const evaluations = await getEvaluationsAction();
 
+  console.log(evaluations);
+
   return (
-    <EvaluationsList
-      pageTitle="Evaluaciones"
-      data={evaluations ?? []}
-      emptyMessage="No hay evaluaciones registradas"
-    />
+    <h1>Evaluaciones</h1>
   );
 }
+
+{/* <EvaluationsList
+  pageTitle="Evaluaciones"
+  data={evaluations ?? []}
+  emptyMessage="No hay evaluaciones registradas"
+/> */}
