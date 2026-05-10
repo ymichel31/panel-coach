@@ -7,6 +7,7 @@ import {
   ChevronDownIcon,
   HorizontaLDots,
   ListIcon,
+  CheckCircleIcon,
   TaskIcon,
   UserCircleIcon,
 } from "../icons/index";
@@ -33,6 +34,12 @@ const navItems: NavItem[] = [
     name: "Practicantes",
     icon: <UserCircleIcon />,
     path: "/practitioners",
+  },
+
+  {
+    name: "Evaluaciones",
+    icon: <CheckCircleIcon />,
+    path: "/evaluations",
   },
 ];
 
