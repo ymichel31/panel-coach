@@ -289,13 +289,12 @@
   }
 }
 
-.session-datetime-field input[type="date"]::-webkit-calendar-picker-indicator,
+/* Sesiones: fecha usa icono nativo; solo ocultamos el de hora para no duplicar con el reloj al final. */
 .session-datetime-field input[type="time"]::-webkit-calendar-picker-indicator {
   display: none !important;
   -webkit-appearance: none !important;
 }
 
-.session-datetime-field input[type="date"]::-moz-calendar-picker-indicator,
 .session-datetime-field input[type="time"]::-moz-calendar-picker-indicator {
   display: none !important;
 }
