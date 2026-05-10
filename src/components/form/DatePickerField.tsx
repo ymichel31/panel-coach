@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useId, useRef } from "react";
 import Label from "@/components/form/Label";
 
 type DatePickerFieldProps = {
@@ -10,14 +10,15 @@ type DatePickerFieldProps = {
 };
 
 const inputClass =
-  "relative min-w-0 flex-1 cursor-pointer border-0 bg-transparent px-3 py-2.5 text-sm outline-none [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0 dark:bg-transparent";
+  "date-input-custom relative min-w-0 flex-1 cursor-pointer appearance-none border-0 bg-transparent px-3 py-2.5 text-sm outline-none dark:bg-transparent";
 
 export default function DatePickerField({ label, value, onChange }: DatePickerFieldProps) {
   const dateInputRef = useRef<HTMLInputElement>(null);
+  const fieldId = useId();
 
   return (
     <div>
-      <Label htmlFor="fecha">
+      <Label htmlFor={fieldId}>
         {label.endsWith(" *") ? (
           <>
             {label.slice(0, -2)}
@@ -29,7 +30,7 @@ export default function DatePickerField({ label, value, onChange }: DatePickerFi
       </Label>
       <div className="flex h-11 w-full items-center overflow-hidden rounded-lg border border-gray-300 bg-transparent text-gray-800 focus-within:border-brand-300 focus-within:ring-3 focus-within:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:focus-within:border-brand-800">
         <label
-          htmlFor="fecha"
+          htmlFor={fieldId}
           className="flex cursor-pointer items-center justify-center pl-3 pr-2.5 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
           title="Elegir fecha"
           onClick={(e) => {
@@ -59,7 +60,7 @@ export default function DatePickerField({ label, value, onChange }: DatePickerFi
         <input
           ref={dateInputRef}
           type="date"
-          id="fecha"
+          id={fieldId}
           value={value || ""}
           onChange={(e) => onChange(e.target.value)}
           onClick={() => dateInputRef.current?.showPicker?.()}
