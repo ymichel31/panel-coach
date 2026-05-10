@@ -4,7 +4,7 @@ import Label from "@/components/form/Label";
 import { useRef } from "react";
 
 const inputClass =
-  "relative min-w-0 flex-1 cursor-pointer border-0 bg-transparent px-3 py-2.5 text-sm outline-none [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0 dark:bg-transparent";
+  "relative min-w-0 flex-1 cursor-pointer border-0 bg-transparent px-3 py-2.5 text-sm outline-none dark:bg-transparent";
 
 type SessionDateTimeFieldProps = {
   datePart: string;
@@ -23,7 +23,7 @@ export default function SessionDateTimeField({
   const timeInputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div>
+    <div className="session-datetime-field">
       <Label htmlFor="fecha">Fecha y hora</Label>
       <div className="flex h-11 w-full items-center overflow-hidden rounded-lg border border-gray-300 bg-transparent text-gray-800 focus-within:border-brand-300 focus-within:ring-3 focus-within:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:focus-within:border-brand-800">
         <label
